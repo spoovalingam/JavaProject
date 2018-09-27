@@ -1,1 +1,1 @@
-# JavaProject
+# StaticWeb
