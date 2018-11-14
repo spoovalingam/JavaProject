@@ -1,6 +1,6 @@
 From tomcat:8-jre8 
 
-# Maintainer 
+# Maintainer yes
 MAINTAINER "youremailaddress" 
 
 # Copy to images tomcat path 
