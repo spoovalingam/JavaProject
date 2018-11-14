@@ -10,8 +10,8 @@ node {
     stage('Build image') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
-
-        app = docker.build("StaticWeb/Dockerfile_tomcate.docker")
+		
+        app = docker.build("staticWeb-image", "./StaticWeb/Dockerfile_tomcate.docker")
     }
 
     stage('Push image') {
@@ -19,8 +19,8 @@ node {
          * First, the incremental build number from Jenkins
          * Second, the 'latest' tag.
          * Pushing multiple tags is cheap, as all the layers are reused. */
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-            app.push("${env.BUILD_NUMBER}")
+        docker.withRegistry('https://hcltraining.azurecr.io', 'HclTraining_Docker_ID') {
+            app.push("1.0.1")
             app.push("latest")
         }
     }
