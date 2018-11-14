@@ -1,27 +1,11 @@
 node {
-    def app
-
-    stage('Clone repository') {
-        /* Let's make sure we have the repository cloned to our workspace */
-
-        checkout scm
+    agent {
+    // Equivalent to "docker build -f Dockerfile.build --build-arg version=1.0.2 ./build/
+    dockerfile {
+        filename 'Dockerfile_tomcate.docker'
+        label 'my-defined-label'
+        additionalBuildArgs  '--build-arg version=1.0.1'
+        args '-v /tmp:/tmp'
     }
-
-    stage('Build image') {
-        /* This builds the actual image; synonymous to
-         * docker build on the command line */
-		
-        app = docker.build("staticWeb-image", "./StaticWeb/Dockerfile_tomcate.docker")
-    }
-
-    stage('Push image') {
-        /* Finally, we'll push the image with two tags:
-         * First, the incremental build number from Jenkins
-         * Second, the 'latest' tag.
-         * Pushing multiple tags is cheap, as all the layers are reused. */
-        docker.withRegistry('https://hcltraining.azurecr.io', 'HclTraining_Docker_ID') {
-            app.push("1.0.1")
-            app.push("latest")
-        }
-    }
+}
 }
