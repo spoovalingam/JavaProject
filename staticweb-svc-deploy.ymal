@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: aps-staticweb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aps-staticweb
+  template:
+    metadata:
+      labels:
+        app: aps-staticweb
+    spec:
+      containers:
+      - name: aps-staticweb
+        image: hcltraining.azurecr.io/web/staticweb:1.0.1
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: aps-staticweb-svc
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  selector:
+    app: aps-staticweb
