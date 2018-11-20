@@ -14,15 +14,17 @@ spec:
     spec:
       containers:
       - name: aps-staticweb
-        image: hcltraining.azurecr.io/web/staticweb:1.0.1
+        image: poovalingam/staticweb:1.0.1
         ports:
         - containerPort: 8080
+		imagePullSecrets:
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: aps-staticweb-svc
 spec:
+  type: LoadBalancer
   ports:
   - port: 8080
     targetPort: 8080
