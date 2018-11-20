@@ -17,7 +17,6 @@ spec:
         image: poovalingam/staticweb:1.0.1
         ports:
         - containerPort: 8080
-		imagePullSecrets:
 ---
 apiVersion: v1
 kind: Service
